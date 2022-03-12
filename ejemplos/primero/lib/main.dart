@@ -14,18 +14,19 @@ class StaticApp extends StatelessWidget {
 class InmutableWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        color: Colors.green,
-        child: Padding(
-          padding: const EdgeInsets.all(40),
-          child: Container(
-            color: Colors.red,
-            child: Padding(
-                padding: const EdgeInsets.all(150),
-                child: Container(
-                  color: Colors.purple,
-                )),
-          ),
-        ));
+    return Column(
+      children: [
+        Column(
+          children: const [Text("Texto 1"), Text("Texto 2")],
+        ),
+        Column(
+          children: const [Text("Texto 3"), Text("Texto 4")],
+        ),
+        Column(
+          children: const [Text("Texto 5"), Text("Texto 6")],
+        )
+      ],
+    );
+    ;
   }
 }
