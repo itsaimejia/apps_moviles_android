@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:reloj/models/alarma.dart';
+import 'package:reloj/models/vuelta.dart';
 
 class Cronometer extends StatefulWidget {
   const Cronometer({Key? key}) : super(key: key);
@@ -11,15 +11,26 @@ class Cronometer extends StatefulWidget {
 }
 
 class _CronometerState extends State<Cronometer> {
-  final listAlarmas = <Alarma>[];
-  int contadorAlarmas = 0;
+  final listVueltas = <Vuelta>[];
+  int contadorVueltas = 0;
   int milisegundos = 0;
   late Timer timer;
   bool estaCorriendo = false;
+
+  TextStyle colorText(int i) {
+    Color c = (i == 1)
+        ? Colors.red
+        : (i % 2 == 0)
+            ? Colors.white
+            : Colors.green;
+
+    return TextStyle(fontSize: 25, color: c);
+  }
+
   void iniciarCronometro() {
     if (!estaCorriendo) {
-      timer = Timer.periodic(Duration(milliseconds: 100), (timer) {
-        this.milisegundos += 100;
+      timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
+        milisegundos += 100;
         setState(() {});
       });
       estaCorriendo = true;
@@ -32,84 +43,139 @@ class _CronometerState extends State<Cronometer> {
       return valor >= 10 ? "$valor" : "0$valor";
     }
 
-    String horas = dosValores(duration.inHours);
+    String dosValoresMili(int valor) {
+      return valor == 0 ? "000" : "$valor";
+    }
+
     String minutos = dosValores(duration.inMinutes.remainder(60));
     String segundos = dosValores(duration.inSeconds.remainder(60));
-    String milisegundos = dosValores(duration.inMilliseconds.remainder(1000));
-    return "$minutos:$segundos.$milisegundos";
+    String milisegundos =
+        dosValoresMili(duration.inMilliseconds.remainder(1000));
+    return "$minutos:$segundos:$milisegundos";
   }
 
   void detenerCronometro() {
-    timer.cancel();
-    estaCorriendo = false;
+    if (estaCorriendo) {
+      timer.cancel();
+      estaCorriendo = false;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Text(
-          formatearTiempo(),
-          style: const TextStyle(fontSize: 50, color: Colors.white),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            TextButton(
-              child: const Text(
-                'Iniciar',
-                style: TextStyle(fontSize: 20),
-              ),
-              onPressed: iniciarCronometro,
-              style: TextButton.styleFrom(
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(30),
-                  primary: Colors.white,
-                  backgroundColor: Colors.black),
+    return Container(
+      padding: const EdgeInsets.all(10),
+      child: ListView(
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          Container(
+            padding: const EdgeInsets.only(top: 200, bottom: 100),
+            alignment: Alignment.center,
+            child: Text(
+              formatearTiempo(),
+              style: const TextStyle(fontSize: 100, color: Colors.white),
             ),
-            TextButton(
-              child: Text("Detener"),
-              onPressed: detenerCronometro,
-              style: TextButton.styleFrom(
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(30),
-                  primary: Colors.white,
-                  backgroundColor: Colors.black),
-            ),
-            TextButton(
-              child: Text("Vuelta"),
-              onPressed: () {
-                setState(() {
-                  contadorAlarmas += 1;
-                  listAlarmas.add(
-                      Alarma('Alarma $contadorAlarmas', formatearTiempo()));
-                });
-              },
-              style: TextButton.styleFrom(
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(30),
-                  primary: Colors.white,
-                  backgroundColor: Colors.black),
-            ),
-          ],
-        ),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const ScrollPhysics(parent: null),
-          reverse: true,
-          itemBuilder: (context, int index) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 50),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(listAlarmas[index].idAlarma),
-                Text(listAlarmas[index].tiempo)
+                TextButton(
+                  child: (estaCorriendo)
+                      ? const Icon(
+                          Icons.access_time_rounded,
+                          size: 40,
+                        )
+                      : const Icon(
+                          Icons.play_arrow_outlined,
+                          size: 40,
+                        ),
+                  style: TextButton.styleFrom(
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(20),
+                      primary: Colors.white,
+                      backgroundColor:
+                          (estaCorriendo) ? Colors.black : Colors.green),
+                  onPressed: () {
+                    setState(() {
+                      if (estaCorriendo) {
+                        contadorVueltas += 1;
+                        listVueltas.add(Vuelta(
+                            'Vuelta $contadorVueltas', formatearTiempo()));
+                      } else {
+                        iniciarCronometro();
+                      }
+                    });
+                  },
+                ),
+                TextButton(
+                  child: (estaCorriendo)
+                      ? const Icon(
+                          Icons.stop_outlined,
+                          size: 40,
+                        )
+                      : const Icon(
+                          Icons.refresh_outlined,
+                          size: 40,
+                        ),
+                  onPressed: () {
+                    setState(() {
+                      if (estaCorriendo) {
+                        detenerCronometro();
+                      } else {
+                        milisegundos = 0;
+                        contadorVueltas = 0;
+                        listVueltas.clear();
+                      }
+                    });
+                  },
+                  style: TextButton.styleFrom(
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(20),
+                      primary: Colors.white,
+                      backgroundColor:
+                          (estaCorriendo) ? Colors.red[600] : Colors.blue[200]),
+                ),
               ],
-            );
-          },
-          itemCount: contadorAlarmas,
-        )
-      ],
+            ),
+          ),
+          Container(
+            decoration: const BoxDecoration(
+                border: Border(
+              top: BorderSide(
+                color: Colors.white,
+                width: 0.5,
+              ),
+            )),
+            child: ListView.builder(
+              shrinkWrap: true,
+              reverse: true,
+              itemCount: contadorVueltas,
+              itemBuilder: (context, int index) {
+                return Container(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(width: 0.5, color: Colors.white)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        listVueltas[index].idVuelta,
+                        style: colorText(index + 1),
+                      ),
+                      Text(listVueltas[index].tiempo,
+                          style: colorText(index + 1))
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
