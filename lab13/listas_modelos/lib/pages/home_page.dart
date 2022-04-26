@@ -31,13 +31,13 @@ class _HomePageState extends State<HomePage> {
                 },
                 child: Padding(
                     padding: const EdgeInsets.only(bottom: 10),
-                    child: buildCardStuden(estudiantes[index])),
+                    child: buildCardStudent(estudiantes[index])),
               );
             }));
   }
 }
 
-Card buildCardStuden(Estudiante estudiante) {
+Card buildCardStudent(Estudiante estudiante) {
   return Card(
     elevation: 5,
     color: Colors.white,
