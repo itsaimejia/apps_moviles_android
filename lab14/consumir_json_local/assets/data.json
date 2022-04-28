@@ -1,0 +1,90 @@
+[
+    {
+        "matricula": "16760300",
+        "nombre_completo": "Itsai Zempoaltecatl",
+        "carrera": "Ingeniería en sistemas computacionales",
+        "semestre": 8,
+        "telefono": "6461234567",
+        "correo": "correo_1@ite.edu.mx"
+    },
+    {
+        "matricula": "16760301",
+        "nombre_completo": "Tony Stark",
+        "carrera": "Ingeniería mecatrónica",
+        "semestre": 9,
+        "telefono": "6461234567",
+        "correo": "correo_1@ite.edu.mx"
+    },
+    {
+        "matricula": "16760302",
+        "nombre_completo": "Steven Rogers",
+        "carrera": "Ingeniería en gestión empresarial",
+        "semestre": 10,
+        "telefono": "6461234567",
+        "correo": "correo_1@ite.edu.mx"
+    },
+    {
+        "matricula": "16760303",
+        "nombre_completo": "Bruce Banner",
+        "carrera": "Ingeniería electrónica",
+        "semestre": 11,
+        "telefono": "6461234567",
+        "correo": "correo_1@ite.edu.mx"
+    },
+    {
+        "matricula": "16760304",
+        "nombre_completo": "Natalia Romanoff",
+        "carrera": "Administración de empresas",
+        "semestre": 12,
+        "telefono": "6461234567",
+        "correo": "correo_1@ite.edu.mx"
+    },
+    {
+        "matricula": "16760305",
+        "nombre_completo": "Thor Odison",
+        "carrera": "Ingeniería electromecánica",
+        "semestre": 5,
+        "telefono": "6461234567",
+        "correo": "correo_1@ite.edu.mx"
+    },
+    {
+        "matricula": "16760306",
+        "nombre_completo": "Loki Laufeyson",
+        "carrera": "Ingeniería en sistemas computacionales",
+        "semestre": 4,
+        "telefono": "6461234567",
+        "correo": "correo_1@ite.edu.mx"
+    },
+    {
+        "matricula": "16760307",
+        "nombre_completo": "Clinton Francis",
+        "carrera": "Ingeniería electromecánica",
+        "semestre": 1,
+        "telefono": "6461234567",
+        "correo": "correo_1@ite.edu.mx"
+    },
+    {
+        "matricula": "16760308",
+        "nombre_completo": "Scott Lang",
+        "carrera": "Ingeniería en sistemas computacionales",
+        "semestre": 2,
+        "telefono": "6461234567",
+        "correo": "correo_1@ite.edu.mx"
+    },
+    {
+        "matricula": "16760309",
+        "nombre_completo": "Wanda Maximoff",
+        "carrera": "Administración de empresas",
+        "semestre": 4,
+        "telefono": "6461234567",
+        "correo": "correo_1@ite.edu.mx"
+    },
+    {
+        "matricula": "16760310",
+        "nombre_completo": "Victor Shade",
+        "carrera": "Ingeniería en gestión empresarial",
+        "semestre": 6,
+        "telefono": "6461234567",
+        "correo": "correo_1@ite.edu.mx"
+    }
+]
