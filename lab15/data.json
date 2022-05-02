@@ -87,6 +87,14 @@
             "semestre": 6,
             "telefono": "6461234567",
             "correo": "correo_1@ite.edu.mx"
+        },
+        {
+            "matricula": "16760311",
+            "nombre_completo": "Pablo Juarez",
+            "carrera": "Ingeniería en sistemas computacionales",
+            "semestre": 6,
+            "telefono": "6461234568",
+            "correo": "correo_1@ite.edu.mx"
         }
     ]
 }
