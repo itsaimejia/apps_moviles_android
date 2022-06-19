@@ -1,5 +1,4 @@
-{
-    "alumnos":[
+[
         {
             "matricula": "16760300",
             "nombre_completo": "Itsai Zempoaltecatl",
@@ -97,4 +96,3 @@
             "correo": "correo_1@ite.edu.mx"
         }
     ]
-}

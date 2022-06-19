@@ -4,7 +4,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-import 'package:flutter/services.dart';
 import 'package:rest_api/const/colors.dart';
 import 'package:rest_api/models/student.dart';
 import 'package:rest_api/pages/detail_student.dart';
@@ -22,10 +21,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Estudiante> estudiantes = [];
 
-  void fetchStudents() async {
+  Future<void> fetchStudents() async {
     final response = await http.get(Uri.parse(
         'https://first-rest-api-4cd1e-default-rtdb.firebaseio.com/alumnos.json'));
     List<dynamic> studentMap = jsonDecode(response.body);
+
     setState(() {
       studentMap.forEach((element) {
         estudiantes.add(Estudiante.fromJson(element));
@@ -43,22 +43,26 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),
-        child: ListView.builder(
-            itemCount: estudiantes.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () async {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              DetailStudent(estudiante: estudiantes[index])));
-                },
-                child: Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: buildCardStudent(estudiantes[index])),
-              );
-            }));
+        child: estudiantes.isNotEmpty
+            ? ListView.builder(
+                itemCount: estudiantes.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DetailStudent(
+                                  estudiante: estudiantes[index])));
+                    },
+                    child: Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: buildCardStudent(estudiantes[index])),
+                  );
+                })
+            : const Center(
+                child: CircularProgressIndicator(),
+              ));
   }
 }
 
